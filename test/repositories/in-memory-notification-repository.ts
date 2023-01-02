@@ -7,8 +7,15 @@ import { NotificationsRepository } from '@app/repositories/notification-reposito
 export class InMemoryNotificationsRepository
   implements NotificationsRepository
 {
-  countManyByRecipientId(): Promise<number> {
-    throw new Error('Method not implemented.');
+  async findManyByRecipientId(recipientId: string): Promise<Notification[]> {
+    return this.notifications.filter(
+      (notification) => notification.recipientId === recipientId,
+    );
+  }
+  async countManyByRecipientId(recipientId: string): Promise<number> {
+    return this.notifications.filter(
+      (notification) => notification.recipientId === recipientId,
+    ).length;
   }
   public notifications: Notification[] = [];
 
